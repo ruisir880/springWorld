@@ -1,7 +1,7 @@
 <html>
 <body>
 <h2>Welcome to spring world!</h2>
-<a href="/register">register</a>
-<a href="/register">login</a>
+<a href="/springworld/register">Sign up</a><br/>
+<a href="/springworld/login">Login</a><br/>
 </body>
 </html>

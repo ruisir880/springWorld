@@ -12,17 +12,9 @@
 
 <html>
 <head>
-    <title>Register</title>
+    <title>Success</title>
 </head>
 <body>
-<sf:form commandName="userInfo" method="POST" action="doRegister">
-    UserName: <sf:input path="userName"/><br/>
-    Email: <sf:input path="email"/><br/>
-    Password: <sf:password path="password"/><br/>
-    <input type="submit" value="register">
-</sf:form>
-
-</form>
-
+<h1>Congratulations! <c:out value="${userName}"/></h1>
 </body>
 </html>
