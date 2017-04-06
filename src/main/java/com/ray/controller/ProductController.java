@@ -36,7 +36,7 @@ public class ProductController {
         return "redirect:/success/"+userInfo.getUserName();
     }
 
-    @RequestMapping(value = "/success/{userName}",method = RequestMethod.GET)
+    @RequestMapping(value = "/success",method = RequestMethod.GET)
     public String success(@PathVariable String userName,Model model){
         model.addAttribute(userName);
         return "/success";
