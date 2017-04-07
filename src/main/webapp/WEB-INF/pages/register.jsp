@@ -16,7 +16,8 @@
 </head>
 <body>
 <sf:form commandName="userInfo" method="POST" action="doRegister">
-    UserName: <sf:input path="userName"/><br/>
+    UserName: <sf:input path="userName"/><sf:errors path="userName"/> <br/>
+
     Email: <sf:input path="email"/><br/>
     Password: <sf:password path="password"/><br/>
     <input type="submit" value="register">
