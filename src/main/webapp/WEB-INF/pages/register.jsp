@@ -16,10 +16,11 @@
 </head>
 <body>
 <sf:form commandName="userInfo" method="POST" action="doRegister">
-    UserName: <sf:input path="userName"/><sf:errors path="userName"/> <br/>
-
-    Email: <sf:input path="email"/><br/>
-    Password: <sf:password path="password"/><br/>
+    <table id="registerTable" border="0">
+        <tr> <td>UserName: </td><td><sf:input path="userName"/><sf:errors path="userName"/></td> </tr>
+        <tr><td>Email:</td><td> <sf:input path="email"/></td></tr>
+        <tr> <td>Password:</td><td> <sf:password path="password"/></td></tr>
+    </table>
     <input type="submit" value="register">
 </sf:form>
 
