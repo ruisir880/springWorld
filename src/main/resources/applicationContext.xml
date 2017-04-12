@@ -19,7 +19,12 @@
         </property>
     </bean>
 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <!--DriverManagerDataSource没用连接池-->
+    <!--org.springframework.jndi.JndiObjectFactoryBean，通过容器管理数据源，也是可以有连接池的-->
+    <!--com.mchange.v2.c3p0.ComboPooledDataSource，c3p0连接池-->
+
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName">
             <value>${db.driver}</value>
         </property>
