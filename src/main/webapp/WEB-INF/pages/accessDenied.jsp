@@ -12,11 +12,9 @@
 
 <html>
 <head>
-    <title>Login</title>
+    <title>AccessDenied</title>
 </head>
 <body>
-<c:if test="${error}">
-  <p>login failed.<p>
-</c:if>
+AccessDenied! You have no authenticated.
 </body>
 </html>

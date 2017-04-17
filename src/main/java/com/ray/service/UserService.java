@@ -7,4 +7,6 @@ import com.ray.model.UserInfo;
  */
 public interface UserService {
     UserInfo findUserById(int id);
+
+    UserInfo findUserByName(String name);
 }

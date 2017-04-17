@@ -6,12 +6,60 @@
                         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                         http://www.springframework.org/schema/security
                         http://www.springframework.org/schema/security/spring-security-3.2.xsd">
-       <security:global-method-security  pre-post-annotations="enabled" />
-       <security:http auto-config="true"/>
+    <security:global-method-security  pre-post-annotations="enabled" />
 
-       <security:authentication-manager alias="myAuthenticationManager">
-              <!-- 权限控制 引用 id是myUserDetailsService的server -->
-              <security:authentication-provider user-service-ref="myUserDetailsService"/>
-       </security:authentication-manager>
+    <security:http auto-config="true">
+        <security:form-login login-page="/login.jsp"
+                             authentication-failure-url="/login.jsp?error=true"
+                             always-use-default-target="true"
+                             default-target-url="/index.jsp"/>
+
+        <!-- <security:intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN"/>
+        <security:intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
+        <security:intercept-url pattern="/jsp/**" access="ROLE_USER,ROLE_ADMIN"/> -->
+        <security:logout logout-success-url="/login.jsp"/>
+        <security:access-denied-handler error-page="/accessDenied.jsp"/>
+        <!-- 会话管理配置 -->
+        <security:session-management invalid-session-url="/login.jsp">
+            <security:concurrency-control max-sessions="1"/>
+        </security:session-management>
+        <security:custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+    </security:http>
+
+
+    <bean id="mySecurityMetadataSource" class="com.ray.security.MySecurityMetadataSource"/>
+
+    <!-- 配置认证管理器 -->
+    <security:authentication-manager alias="myAuthenticationManager">
+        <security:authentication-provider ref="authenticationProvider"></security:authentication-provider>
+    </security:authentication-manager>
+
+    <bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="myUserdetailService" />
+        <!--显示用户错误信息-->
+        <property name="hideUserNotFoundExceptions" value="false" />
+        <property  name="passwordEncoder" ref="md5password"></property>
+    </bean>
+
+    <!-- <bean id="userService" class="com.webo.service.impl.UserServiceImpl"/> -->
+    <bean name="myUserdetailService" class="com.ray.security.MyUserDetailsService">
+        <!-- <property name="userService" ref="userService"></property> -->
+    </bean>
+
+    <bean id="myAccessDecisionManager" class="com.ray.security.MyAccessDecisionManager"></bean>
+
+    <bean name="securityFilter" class="com.ray.security.MySeurityFilter">
+        <!-- 用户拥有的权限 -->
+        <property name="authenticationManager" ref="myAuthenticationManager" />
+        <!-- 用户是否拥有所请求资源的权限 -->
+        <property name="accessDecisionManager" ref="myAccessDecisionManager" />
+        <!-- 资源与权限对应关系 -->
+        <property name="securityMetadataSource" ref="mySecurityMetadataSource" />
+    </bean>
+
+
+    <!-- 密码加密策略 -->
+    <bean name="md5password" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder">
+    </bean>
 
 </beans>

@@ -16,4 +16,8 @@ public class UserServiceBean implements UserService {
     public UserInfo findUserById(int id) {
         return userDao.selectUserById(id);
     }
+
+    public UserInfo findUserByName(String name) {
+        return null;
+    }
 }
